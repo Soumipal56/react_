@@ -1,26 +1,44 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useState } from 'react'
+import Card from './components/Card'
 
 const App = () => {
+  
+  const [postData, setpostData] = useState([{
+    id:1,
+    name:"ritik",
+    desc:"edjfbwefjbwe",
+    likeCount: 1,
 
-  const [increment, setIncrement] = useState(0)
-  // const [decrement, setDecrement] = useState(100)
+},
+{
+  id:2,
+  name:"vatsal",
+  desc:"edjfbwefjbwe",
+  likeCount: 1,
 
-  function incrementby5(){
-    setIncrement((prev)=> prev + 5)
-    setIncrement((prev)=> prev + 5)
-  }
+}])
 
-  // function decrementby5(){
-  //   setDecrement(decrement - 5)
-  // }
+
+// refrence -(),{},[]
+
+
+const like = (id)=>{
+ setpostData((prev)=>prev.map((item)=> 
+ item.id === id ? {...item,likeCount:item.likeCount+1}:item))
+}
+
+const dislike = (id)=>{
+ setpostData((prev)=>prev.map((item=>
+  item.id===id && item.likeCount >=1
+   ?{...item, likeCount:item.likeCount-1}:item)))
+}
 
   return (
-    <div className='p-10 flex flex-col items-center justify-center'>
-      <h1>{increment}</h1>
-      {/* <h1>{decrement}</h1> */}
-      <button onClick={incrementby5} className='px-8 py-3 rounded-md bg-green-500 active:scale-95 ml-4'>Increment by 5</button>
-      {/* <button onClick={decrementby5} className='px-8 py-3 rounded-md bg-red-500 active:scale-95 ml-4'>Decrement by 5</button> */}
+    <div className='px-10 py-5'>
+      <Card postData={postData}  like={like} dislike ={dislike}/>
     </div>
   )
 }
+
 export default App
